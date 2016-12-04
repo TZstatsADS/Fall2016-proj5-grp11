@@ -1,6 +1,7 @@
 #Main
 source("Monte Carlo Tennis.R")
 source("Tournament.R")
+source("Get.History.R")
 
 #Example: Simulate Single Match
 #"Roger Federer" vs  "Rafael Nadal" on 2015.1.1 on Hard Surface
@@ -23,4 +24,10 @@ for(i in 1:1000){
   print(i)
   Champions[i] =  Tournament(Name_List,Draws,"2015-01-01","Hard")$Champion
 }
+table(Champions)
 
+
+
+#Example: Get most recent tournametns of a player
+Player = "Rafael Nadal"
+Get.Histroy(Player,"2015-01-01",10)
