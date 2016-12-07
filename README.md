@@ -11,7 +11,7 @@ Term: Fall 2016
 
 + Project summary:Based on ATP dataset from 2011-2015, we employed Markov Chain Model with Monte Carlo to simulate tennis player's head-to-head match and a tournament outcome as well. 
 	
-**Contribution statement**: ([default](doc/a_note_on_contributions.md)) All team members contributed equally in all stages of this project. All team members approve our work presented in this GitHub repository including this contributions statement. 
+**Contribution statement**: ([default](doc/a_note_on_contributions.md)) Rong took charge of Model construction using Markov Chain model with Monte Carlo simulations. (Most of algorithm functions) Youzhu Liu design and code the shiny interactive app for the statistcal insights and prediction models. Mengya Zhao made functions of plots and helped with the shiny app.
 
 Following [suggestions](http://nicercode.github.io/blog/2013-04-05-projects/) by [RICH FITZJOHN](http://nicercode.github.io/about/#Team) (@richfitz). This folder is orgarnized as follows.
 
