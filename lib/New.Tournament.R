@@ -1,3 +1,7 @@
+source("Monte Carlo Tennis.R")
+source("Tournament.R")
+source("Get.History.R")
+
 New.Tournament<-function(Name_List,Draws,Time,Surface){
   library(truncnorm)
   library(stringr)
@@ -21,7 +25,7 @@ New.Tournament<-function(Name_List,Draws,Time,Surface){
   for(i in 1:8){
     A = grep(Draws[(2*(i-1)+1)],Name_List)
     B = grep(Draws[2*i],Name_List)
-    Temp = New.Para(Fea[[A]],Fea[[B]])
+    Temp = New.Para(Fea[[A]],Fea[[B]],Field)
     simu.result = Simulate(Temp$new.pa,Temp$new.pb)
     if(simu.result == 1){
       Quarter[i] = Draws[(2*(i-1)+1)]
@@ -33,7 +37,7 @@ New.Tournament<-function(Name_List,Draws,Time,Surface){
   for(i in 1:4){
     A = grep(Quarter[(2*(i-1)+1)],Name_List)
     B = grep(Quarter[2*i],Name_List)
-    Temp = New.Para(Fea[[A]],Fea[[B]])
+    Temp = New.Para(Fea[[A]],Fea[[B]],Field)
     simu.result = Simulate(Temp$new.pa,Temp$new.pb)
     if(simu.result == 1){
       Semi[i] = Quarter[(2*(i-1)+1)]
@@ -45,7 +49,7 @@ New.Tournament<-function(Name_List,Draws,Time,Surface){
   for(i in 1:2){
     A = grep(Semi[(2*(i-1)+1)],Name_List)
     B = grep(Semi[2*i],Name_List)
-    Temp = New.Para(Fea[[A]],Fea[[B]])
+    Temp = New.Para(Fea[[A]],Fea[[B]],Field)
     simu.result = Simulate(Temp$new.pa,Temp$new.pb)
     if(simu.result == 1){
       Final[i] = Semi[(2*(i-1)+1)]
@@ -56,9 +60,8 @@ New.Tournament<-function(Name_List,Draws,Time,Surface){
   
   A = grep(Final[1],Name_List)
   B = grep(Final[2],Name_List)
-  Temp = New.Para(Fea[[A]],Fea[[B]])
+  Temp = New.Para(Fea[[A]],Fea[[B]],Field)
   simu.result = Simulate(Temp$new.pa,Temp$new.pb)
-  simu.result = rbinom(1,1,Prob)
   if(simu.result == 1) Champion = Final[1]
   if(simu.result == 0) Champion = Final[2]
   return(list(Quarter=Quarter,Semi=Semi,Final=Final,Champion=Champion))
@@ -80,7 +83,7 @@ Get.Fea<-function(PlayerA,Matches){
 }
 
 
-New.Para<-function(FeaA,FeaB){
+New.Para<-function(FeaA,FeaB,Field){
   pa = FeaA$pa
   ra = FeaA$ra
   pb = FeaB$pa
@@ -116,12 +119,17 @@ Simulate<-function(new.pa,new.pb){
 
 
 # Names = unique(Match$Winner.Name)
-# Name_List = Names[1:16]
+# A = read.csv("TOP25.csv",stringsAsFactors = FALSE)
+# Name_List = A[1:16,2]
 # a = sample(1:16,16)
 # Draws = Name_List[a]
-# Surface = "Hard"
-# t1 = Sys.time()
-# Tournament(Name_List,Draws,"2013-08-30","Hard")
-# t2 = Sys.time()
-# New.Tournament(Name_List,Draws,"2013-08-30","Hard")
-# t3 = Sys.time()
+# # 
+# Clay.Result = NULL
+# for(i in 1:1000){
+#   a = sample(1:16,16)
+#   Draws = Name_List[a]
+#   Clay.Result[[i]] = New.Tournament(Name_List,Draws,"2016-01-01","Clay")
+#   print(Clay.Result[[i]]$Champion)
+#   print(i)
+# }
+# save(Clay.Result,file = "Clay.Result.RData")
